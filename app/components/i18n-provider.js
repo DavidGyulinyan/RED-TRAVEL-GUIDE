@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { messages } from "../i18n/messages";
 
 const I18nContext = createContext(null);
@@ -10,11 +10,14 @@ function getByPath(obj, path) {
 }
 
 export function I18nProvider({ children }) {
-  const [lang, setLang] = useState(() => {
-    if (typeof window === "undefined") return "en";
+  const [lang, setLang] = useState("en");
+
+  useEffect(() => {
     const saved = window.localStorage.getItem("rtg-lang");
-    return saved && messages[saved] ? saved : "en";
-  });
+    if (saved && messages[saved]) {
+      setLang(saved);
+    }
+  }, []);
 
   const value = useMemo(() => {
     const t = (key) => {
@@ -27,7 +30,9 @@ export function I18nProvider({ children }) {
     const changeLanguage = (nextLang) => {
       if (!messages[nextLang]) return;
       setLang(nextLang);
-      window.localStorage.setItem("rtg-lang", nextLang);
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem("rtg-lang", nextLang);
+      }
     };
 
     return { lang, setLang: changeLanguage, t };
