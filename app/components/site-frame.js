@@ -1,12 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useI18n } from "./i18n-provider";
 
 export default function SiteFrame({ children }) {
   const { lang, setLang, t } = useI18n();
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const navWrapRef = useRef(null);
 
   const handleNavClick = () => {
     setMenuOpen(false);
@@ -28,10 +31,34 @@ export default function SiteFrame({ children }) {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    const closeOnOutsideClick = (event) => {
+      if (!menuOpen || !navWrapRef.current) {
+        return;
+      }
+
+      if (!navWrapRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", closeOnOutsideClick);
+    document.addEventListener("touchstart", closeOnOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", closeOnOutsideClick);
+      document.removeEventListener("touchstart", closeOnOutsideClick);
+    };
+  }, [menuOpen]);
+
   return (
     <>
       <header className="site-header">
-        <div className="container nav-wrap">
+        <div className="container nav-wrap" ref={navWrapRef}>
           <Link href="/" className="brand">
             {t("brand.name")}
           </Link>
