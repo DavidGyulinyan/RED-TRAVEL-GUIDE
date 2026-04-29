@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useI18n } from "./i18n-provider";
 
@@ -11,6 +11,22 @@ export default function SiteFrame({ children }) {
   const handleNavClick = () => {
     setMenuOpen(false);
   };
+
+  useEffect(() => {
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+      }
+    };
+
+    if (menuOpen) {
+      document.addEventListener("keydown", closeOnEscape);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [menuOpen]);
 
   return (
     <>
@@ -31,7 +47,14 @@ export default function SiteFrame({ children }) {
             <span />
             <span />
           </button>
+          {menuOpen ? <button type="button" className="menu-backdrop" aria-label="Close menu" onClick={handleNavClick} /> : null}
           <div id="mobile-navigation" className={`header-actions ${menuOpen ? "open" : ""}`}>
+            <div className="menu-panel-head">
+              <p>Explore</p>
+              <Link href="/contact" className="menu-quick-action" onClick={handleNavClick}>
+                Book now
+              </Link>
+            </div>
             <nav className="main-nav" aria-label="Main navigation">
               <Link href="/" onClick={handleNavClick}>
                 {t("nav.home")}
