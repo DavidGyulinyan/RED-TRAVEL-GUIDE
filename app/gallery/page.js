@@ -1,5 +1,6 @@
 "use client";
 
+import InstagramReelEmbed, { INSTAGRAM_REEL_SHORTCODES } from "../components/instagram-reel-embed";
 import { useI18n } from "../components/i18n-provider";
 
 const photos = [
@@ -9,12 +10,6 @@ const photos = [
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGa4eS0j98VWB0Bz5g5K85MbySjPU7qJNVIA&s",
   "https://d31qtdfy11mjj9.cloudfront.net/gallery/1557131666824133567.jpg",
   "https://welcomevoyage.com/wp-content/uploads/2026/03/vodopad-trchkan-samyj-vysokij-vodopad-armenii.webp",
-];
-
-const clips = [
-  "https://player.vimeo.com/external/371433846.sd.mp4?s=a4b6988b63fa70eb89ecf593bcd855287983afcb&profile_id=139&oauth2_token_id=57447761",
-  "https://player.vimeo.com/external/477695699.sd.mp4?s=f3f38c52ef506f88ea4f7dd6f6dfd5ccfdb892ce&profile_id=139&oauth2_token_id=57447761",
-  "https://player.vimeo.com/external/397693004.sd.mp4?s=74050dbdeeff4b9f8f778d13f70906f25a5c13e3&profile_id=139&oauth2_token_id=57447761",
 ];
 
 export default function GalleryPage() {
@@ -38,11 +33,12 @@ export default function GalleryPage() {
         <div className="container">
           <h2>{t("gallery.videoTitle")}</h2>
           <div className="video-grid">
-            {clips.map((clip, index) => (
-              <video key={clip} controls muted loop playsInline>
-                <source src={clip} type="video/mp4" />
-                Off-road video {index + 1}
-              </video>
+            {INSTAGRAM_REEL_SHORTCODES.map((shortcode, index) => (
+              <InstagramReelEmbed
+                key={shortcode}
+                shortcode={shortcode}
+                captionTitle={`Trail Reel ${index + 1}`}
+              />
             ))}
           </div>
         </div>
