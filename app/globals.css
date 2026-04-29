@@ -71,6 +71,10 @@ a {
   gap: 1rem;
 }
 
+.menu-panel-head {
+  display: none;
+}
+
 .main-nav {
   display: flex;
   gap: 1.1rem;
