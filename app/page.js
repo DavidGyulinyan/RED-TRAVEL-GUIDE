@@ -1,66 +1,83 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import Link from "next/link";
+import { useI18n } from "./components/i18n-provider";
 
 export default function Home() {
+  const { t } = useI18n();
+  const highlights = [
+    {
+      title: "Volcanic Highlands Route",
+      text: "Drive ancient lava plateaus and hidden valleys above the clouds.",
+      image: "https://phoenixtour.org/wp-content/uploads/2021/04/18-ARMENIAN-NATURE.jpg",
+    },
+    {
+      title: "Lake Sevan Panorama Trails",
+      text: "Sunrise and sunset viewpoints over blue alpine waters and wild ridges.",
+      image: "https://hyurservice.com/images/private_tours/1/16187533729532/860x460.webp",
+    },
+    {
+      title: "Monastery and Mountain Loop",
+      text: "Combine remote monasteries, canyons, and off-road village roads.",
+      image: "https://bidfortrip.com/uploads/0000/32/2021/03/04/tour-kanchaqar-sanahin-haghpat-3.jpg",
+    },
+  ];
+
+  const shortVideos = [
+    "https://player.vimeo.com/external/434045526.sd.mp4?s=ef4f9735ff7e6c2047164f77d14bbda858a57f36&profile_id=139&oauth2_token_id=57447761",
+    "https://player.vimeo.com/external/370467553.sd.mp4?s=0bfbf86de1f5ba12dd0bafcd1e386f368ec7339e&profile_id=139&oauth2_token_id=57447761",
+  ];
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="page-shell">
+      <section className="hero">
+        <div className="hero-overlay" />
+        <div className="container hero-content">
+          <p className="eyebrow">{t("home.eyebrow")}</p>
+          <h1>{t("home.title")}</h1>
+          <p>{t("home.subtitle")}</p>
+          <div className="cta-row">
+            <Link href="/tours" className="cta-primary">
+              {t("home.ctaTours")}
+            </Link>
+            <Link href="/gallery" className="cta-secondary">
+              {t("home.ctaGallery")}
+            </Link>
+          </div>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <h2>{t("home.featuredTitle")}</h2>
+          <div className="card-grid">
+            {highlights.map((item, index) => (
+              <article key={item.title} className="tour-card">
+                <img src={item.image} alt={item.title} />
+                <div className="tour-card-body">
+                  <h3>{t(`home.cards.${index}.title`)}</h3>
+                  <p>{t(`home.cards.${index}.text`)}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
-      </main>
+      </section>
+
+      <section className="section dark">
+        <div className="container">
+          <h2>{t("home.videoTitle")}</h2>
+          <p className="section-text">{t("home.videoText")}</p>
+          <div className="video-grid">
+            {shortVideos.map((video, index) => (
+              <video key={video} controls muted loop playsInline>
+                <source src={video} type="video/mp4" />
+                Video clip {index + 1}
+              </video>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
