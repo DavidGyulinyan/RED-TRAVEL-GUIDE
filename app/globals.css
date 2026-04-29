@@ -65,6 +65,12 @@ a {
   font-size: 0.9rem;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .main-nav {
   display: flex;
   gap: 1.1rem;
@@ -95,6 +101,38 @@ a {
   background: #fff;
   color: #1f1f1b;
   border-color: #fff;
+}
+
+.menu-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  padding: 0.45rem;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: #fff;
+  margin: 4px 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.menu-toggle.open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.menu-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 .page-shell {
@@ -475,14 +513,43 @@ p {
     grid-template-columns: 1fr;
   }
 
-  .main-nav {
-    justify-content: flex-end;
+  .nav-wrap {
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0.7rem 0;
   }
 
-  .nav-wrap {
-    align-items: flex-start;
+  .menu-toggle {
+    display: inline-block;
+    margin-left: auto;
+  }
+
+  .header-actions {
+    display: none;
+    width: 100%;
     flex-direction: column;
-    padding: 0.7rem 0;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding-top: 0.6rem;
+  }
+
+  .header-actions.open {
+    display: flex;
+  }
+
+  .main-nav {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .main-nav a {
+    font-size: 1rem;
+  }
+
+  .lang-switcher {
+    margin-top: 0.15rem;
   }
 
   .hero-content {
