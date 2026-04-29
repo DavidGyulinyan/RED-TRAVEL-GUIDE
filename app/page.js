@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import InstagramReelEmbed, { INSTAGRAM_REEL_SHORTCODES } from "./components/instagram-reel-embed";
 import { useI18n } from "./components/i18n-provider";
 
 export default function Home() {
@@ -21,11 +22,6 @@ export default function Home() {
       text: "Combine remote monasteries, canyons, and off-road village roads.",
       image: "https://bidfortrip.com/uploads/0000/32/2021/03/04/tour-kanchaqar-sanahin-haghpat-3.jpg",
     },
-  ];
-
-  const shortVideos = [
-    "https://player.vimeo.com/external/434045526.sd.mp4?s=ef4f9735ff7e6c2047164f77d14bbda858a57f36&profile_id=139&oauth2_token_id=57447761",
-    "https://player.vimeo.com/external/370467553.sd.mp4?s=0bfbf86de1f5ba12dd0bafcd1e386f368ec7339e&profile_id=139&oauth2_token_id=57447761",
   ];
 
   return (
@@ -69,11 +65,12 @@ export default function Home() {
           <h2>{t("home.videoTitle")}</h2>
           <p className="section-text">{t("home.videoText")}</p>
           <div className="video-grid">
-            {shortVideos.map((video, index) => (
-              <video key={video} controls muted loop playsInline>
-                <source src={video} type="video/mp4" />
-                Video clip {index + 1}
-              </video>
+            {INSTAGRAM_REEL_SHORTCODES.map((shortcode, index) => (
+              <InstagramReelEmbed
+                key={shortcode}
+                shortcode={shortcode}
+                captionTitle={`Mountain Reel ${index + 1}`}
+              />
             ))}
           </div>
         </div>
