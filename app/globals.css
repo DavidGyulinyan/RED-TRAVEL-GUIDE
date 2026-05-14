@@ -147,11 +147,18 @@ a {
 .hero {
   min-height: 78vh;
   position: relative;
-  background-image: url("https://nourarmeniatours.com/wp-content/uploads/2025/06/istockphoto-2198462919-612x612-1-1024x683.webp");
-  background-position: center;
-  background-size: cover;
+  overflow: hidden;
+  background: #050607;
   display: flex;
   align-items: center;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero-overlay {
@@ -165,7 +172,27 @@ a {
   z-index: 1;
   color: #fff;
   padding: 6rem 0;
-  max-width: 720px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.hero-copy {
+  max-width: 560px;
+}
+
+@media (min-width: 1100px) {
+  .hero .container {
+    width: min(1280px, 96vw);
+  }
+
+  .hero-content {
+    grid-template-columns: minmax(0, 560px) minmax(280px, 1fr);
+    align-items: center;
+  }
+
+  .hero-copy {
+    max-width: none;
+  }
 }
 
 .eyebrow {
@@ -345,18 +372,86 @@ p {
   font-size: 0.8rem;
 }
 
+.local-video-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+@media (min-width: 760px) {
+  .local-video-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+.local-video-card {
+  overflow: hidden;
+  border-radius: 18px;
+  background: #101214;
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+}
+
+.local-video-frame {
+  aspect-ratio: 16 / 9;
+  background: #050607;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.local-video-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #050607;
+}
+
+.local-video-meta {
+  padding: 0.85rem 0.9rem 0.95rem;
+}
+
+.local-video-meta p {
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
 .photo-grid {
   margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 0.9rem;
+  grid-auto-flow: dense;
 }
 
-.photo-grid img {
+.photo-card {
+  margin: 0;
+  position: relative;
+  min-height: 250px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #dcd7cf;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.photo-card--wide {
+  grid-column: span 2;
+}
+
+.photo-card--tall {
+  grid-row: span 2;
+  min-height: 520px;
+}
+
+.photo-card img {
   width: 100%;
-  height: 250px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 12px;
+  display: block;
 }
 
 .prose p {
@@ -694,5 +789,12 @@ p {
 
   .reel-card {
     flex-basis: min(300px, 86vw);
+  }
+
+  .photo-card--wide,
+  .photo-card--tall {
+    grid-column: span 1;
+    grid-row: span 1;
+    min-height: 250px;
   }
 }
