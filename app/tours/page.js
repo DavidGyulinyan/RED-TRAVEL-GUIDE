@@ -4,15 +4,14 @@ import { useI18n } from "../components/i18n-provider";
 
 const tours = [
   {
-    name: "Aragats Summit Track",
+    name: "Summit Access Track",
     duration: "1 Day",
     level: "Moderate",
-    details:
-      "A powerful 4x4 route through mountain villages and high-altitude tracks near Mount Aragats.",
+    details: "A powerful 4x4 route through mountain villages and high-altitude tracks.",
     image: "https://eurasia.travel/wp-content/uploads/2025/06/2.-Aragats-Mount-Armenia.jpg",
   },
   {
-    name: "Geghama Volcanic Expedition",
+    name: "Volcanic Ridge Expedition",
     duration: "2 Days",
     level: "Challenging",
     details:
@@ -20,7 +19,7 @@ const tours = [
     image: "https://www.goingthewholehogg.com/wp-content/uploads/Geghama-Mountains-Trekking-Guide-Header.jpg",
   },
   {
-    name: "Dilijan Forest and Peaks",
+    name: "Forest and Peak Escape",
     duration: "1 Day",
     level: "Easy to Moderate",
     details:

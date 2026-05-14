@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Red Travel Guide",
   description:
-    "4x4 mountain adventures across Armenia with scenic routes, short expeditions, and custom private tours.",
+    "4x4 mountain adventures with scenic routes, short expeditions, and custom private tours.",
 };
 
 export default function RootLayout({ children }) {
