@@ -173,7 +173,13 @@ export default function GalleryPageClient({ videos, emotionPhotos }) {
                         onClick={() => openLightbox("emotions", index)}
                         aria-label={`${t("gallery.openLabel")}: ${photo.alt}`}
                       >
-                        <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 780px) 46vw, 22vw" />
+                      <Image
+                        src={photo.src}
+                        alt={photo.alt}
+                        fill
+                        loading={index === 0 ? "eager" : undefined}
+                        sizes="(max-width: 780px) 46vw, 22vw"
+                      />
                         <span className="gallery-media-hint">{t("gallery.openLabel")}</span>
                       </button>
                     </figure>
