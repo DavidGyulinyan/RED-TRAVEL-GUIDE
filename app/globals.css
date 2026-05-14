@@ -747,6 +747,40 @@ p {
   stroke-linejoin: round;
 }
 
+.gallery-scroll-top {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  z-index: 26;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(17, 20, 22, 0.08);
+  background: rgba(255, 255, 255, 0.78);
+  color: rgba(17, 20, 22, 0.88);
+  box-shadow: 0 10px 24px rgba(17, 20, 22, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.gallery-scroll-top svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.75;
+}
+
+.gallery-scroll-top:hover,
+.gallery-scroll-top:focus-visible {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(17, 20, 22, 0.12);
+  box-shadow: 0 14px 28px rgba(17, 20, 22, 0.14);
+}
+
 .gallery-lightbox-content {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;

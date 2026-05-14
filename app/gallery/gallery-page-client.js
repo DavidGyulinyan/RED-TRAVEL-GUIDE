@@ -36,9 +36,18 @@ function ChevronRightIcon() {
   );
 }
 
+function ChevronUpIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m5 15 7-7 7 7" />
+    </svg>
+  );
+}
+
 export default function GalleryPageClient({ videos, emotionPhotos }) {
   const { t } = useI18n();
   const [lightboxState, setLightboxState] = useState(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const experienceMoments = Array.isArray(t("gallery.experienceMoments"))
     ? t("gallery.experienceMoments")
@@ -125,6 +134,23 @@ export default function GalleryPageClient({ videos, emotionPhotos }) {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [closeLightbox, lightboxState, stepLightbox]);
+
+  useEffect(() => {
+    const updateScrollTopVisibility = () => {
+      setShowScrollTop(window.scrollY > 480);
+    };
+
+    updateScrollTopVisibility();
+    window.addEventListener("scroll", updateScrollTopVisibility, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", updateScrollTopVisibility);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const counterLabel = activeItem
     ? `${activeItem.mediaType === "video" ? t("gallery.clipLabel") : t("gallery.photoLabel")} ${
@@ -282,6 +308,18 @@ export default function GalleryPageClient({ videos, emotionPhotos }) {
           </div>
         </div>
       </section>
+
+      {showScrollTop && !activeItem && (
+        <button
+          type="button"
+          className="gallery-scroll-top gallery-lightbox-icon-button"
+          onClick={scrollToTop}
+          aria-label={t("gallery.scrollTopLabel")}
+        >
+          <ChevronUpIcon />
+          <span className="sr-only">{t("gallery.scrollTopLabel")}</span>
+        </button>
+      )}
 
       {activeItem && (
         <div className="gallery-lightbox" role="dialog" aria-modal="true" aria-label={t("gallery.viewerTitle")}>
