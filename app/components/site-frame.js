@@ -2,13 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useI18n } from "./i18n-provider";
 
 export default function SiteFrame({ children }) {
   const { lang, setLang, t } = useI18n();
   const [menuOpen, setMenuOpen] = useState(false);
-  const pathname = usePathname();
+  const [headerScrolled, setHeaderScrolled] = useState(false);
   const navWrapRef = useRef(null);
 
   const handleNavClick = () => {
@@ -32,10 +31,6 @@ export default function SiteFrame({ children }) {
   }, [menuOpen]);
 
   useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     const closeOnOutsideClick = (event) => {
       if (!menuOpen || !navWrapRef.current) {
         return;
@@ -55,11 +50,24 @@ export default function SiteFrame({ children }) {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const updateHeaderScrollState = () => {
+      setHeaderScrolled(window.scrollY > 12);
+    };
+
+    updateHeaderScrollState();
+    window.addEventListener("scroll", updateHeaderScrollState, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", updateHeaderScrollState);
+    };
+  }, []);
+
   return (
     <>
-      <header className="site-header">
+      <header className={`site-header ${headerScrolled ? "scrolled" : ""}`}>
         <div className="container nav-wrap" ref={navWrapRef}>
-          <Link href="/" className="brand">
+          <Link href="/" className="brand" onClick={handleNavClick}>
             {t("brand.name")}
           </Link>
           <button
@@ -113,6 +121,7 @@ export default function SiteFrame({ children }) {
           </div>
         </div>
       </header>
+      <div className="site-header-spacer" aria-hidden="true" />
       <main>{children}</main>
       <footer className="site-footer">
         <div className="container footer-wrap">
