@@ -20,28 +20,28 @@ const HERO_VIDEO_SOURCES = [
 ];
 
 const HERO_START_INDEX = 6;
+const featuredPhotoBySrc = new Map(galleryPhotos.map((photo) => [photo.src, photo]));
+
+function getFeaturedPhoto(id, src) {
+  const photo = featuredPhotoBySrc.get(src);
+  if (!photo) return null;
+
+  return {
+    id,
+    src: photo.src,
+    alt: photo.alt,
+  };
+}
 
 export default function Home() {
   const { t } = useI18n();
   const [activeHeroVideoIndex, setActiveHeroVideoIndex] = useState(HERO_START_INDEX);
   const heroVideoSrc = HERO_VIDEO_SOURCES[activeHeroVideoIndex];
   const highlights = [
-    {
-      id: "lake-reflection",
-      image: galleryPhotos[11].src,
-      alt: galleryPhotos[11].alt,
-    },
-    {
-      id: "fog-cliffs",
-      image: galleryPhotos[10].src,
-      alt: galleryPhotos[10].alt,
-    },
-    {
-      id: "alpine-lake",
-      image: galleryPhotos[12].src,
-      alt: galleryPhotos[12].alt,
-    },
-  ];
+    getFeaturedPhoto("lake-reflection", "/gallery/offroad-12.png"),
+    getFeaturedPhoto("fog-cliffs", "/gallery/offroad-11.png"),
+    getFeaturedPhoto("alpine-lake", "/gallery/offroad-13.png"),
+  ].filter(Boolean);
 
   const showNextHeroVideo = () => {
     setActiveHeroVideoIndex((currentIndex) => (currentIndex + 1) % HERO_VIDEO_SOURCES.length);
@@ -88,7 +88,7 @@ export default function Home() {
             {highlights.map((item, index) => (
               <article key={item.id} className="tour-card">
                 <Image
-                  src={item.image}
+                  src={item.src}
                   alt={item.alt}
                   width={720}
                   height={440}

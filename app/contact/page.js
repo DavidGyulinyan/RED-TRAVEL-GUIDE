@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useI18n } from "../components/i18n-provider";
 
-const WHATSAPP_NUMBER = "374000000000";
+const WHATSAPP_NUMBER = "37498338636";
+const WHATSAPP_DISPLAY = "+374 98 338636";
 const WHATSAPP_BASE_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 
 export default function ContactPage() {
@@ -38,7 +39,7 @@ export default function ContactPage() {
             <div className="contact-cards">
               <article className="contact-card">
                 <h3>{t("contact.cards.whatsappTitle")}</h3>
-                <p>+374 00 000 000</p>
+                <p>{WHATSAPP_DISPLAY}</p>
                 <a href={WHATSAPP_BASE_URL} target="_blank" rel="noreferrer">
                   {t("contact.cards.whatsappAction")}
                 </a>

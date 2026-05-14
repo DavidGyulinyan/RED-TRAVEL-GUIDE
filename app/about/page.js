@@ -39,7 +39,7 @@ export default function AboutPage() {
             </ul>
             <a
               className="about-whatsapp-btn"
-              href="https://wa.me/374000000000"
+              href="https://wa.me/37498338636"
               target="_blank"
               rel="noreferrer"
             >

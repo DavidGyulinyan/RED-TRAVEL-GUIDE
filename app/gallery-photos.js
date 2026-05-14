@@ -1,10 +1,5 @@
 export const galleryPhotos = [
   {
-    src: "/gallery/offroad-01.png",
-    alt: "High mountain valley with a small alpine lake",
-    layout: "tall",
-  },
-  {
     src: "/gallery/offroad-02.png",
     alt: "Aerial view of winding mountain roads and dry ridges",
     layout: "standard",
